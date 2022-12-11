@@ -19,6 +19,7 @@
     "react": "18.2.0",
     "react-color-extractor": "^1.1.2",
     "react-dom": "18.2.0",
+    "react-speech-kit": "^3.0.1",
     "react-webcam": "^7.0.1",
     "text-to-speech-js": "^1.1.10",
     "theme-change": "^2.2.0"

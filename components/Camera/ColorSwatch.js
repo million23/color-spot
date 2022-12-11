@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { FiArrowDown } from "react-icons/fi";
-import { TextToSpeech } from "text-to-speech-js";
 import { toast } from "react-hot-toast";
+import { useSpeechSynthesis } from "react-speech-kit";
 
 const Swatch = ({ color }) => {
   const [colorData, setColorData] = useState({});
   const [collapsed, setCollapsed] = useState(true);
+  const { speak, speaking } = useSpeechSynthesis();
 
   const fetchColorName = async () => {
     const res = await fetch(
@@ -23,14 +24,16 @@ const Swatch = ({ color }) => {
   };
 
   const sayMessage = (message) => {
-    const speech = new SpeechSynthesisUtterance();
-    speech.text = message;
+    speak({ text: message });
+    // if (typeof window !== "undefined") {
+    //   const speech = new SpeechSynthesisUtterance();
+    //   speech.text = message;
 
-    speech.volume = 1;
-    speech.rate = 1;
-    speech.pitch = 1;
-
-    window.speechSynthesis.speak(speech);
+    //   speech.volume = 1;
+    //   speech.rate = 1;
+    //   speech.pitch = 1;
+    //   window.speechSynthesis.speak(speech);
+    // }
   };
 
   useEffect(() => {
@@ -90,7 +93,10 @@ const Swatch = ({ color }) => {
                   }}
                   className="btn btn-primary"
                 >
-                  Play audio: {colorData.name.value}
+                  {speaking
+                    ? "Playing Audio Feedback..."
+                    : `Play audio: ${colorData.name.value}`}
+                  {/* Play audio: {colorData.name.value} */}
                 </button>
 
                 <CopyToClipboard
