@@ -100,6 +100,15 @@ const Swatch = ({ color }) => {
                 </button>
 
                 <CopyToClipboard
+                  text={colorData.name.value}
+                  onCopy={() => {
+                    toast.success("Copied to clipboard!");
+                  }}
+                >
+                  <p className="btn btn-ghost">Copy color name</p>
+                </CopyToClipboard>
+
+                {/* <CopyToClipboard
                   text={colorData.hex.value}
                   onCopy={() => {
                     toast.success("Copied to clipboard!");
@@ -148,7 +157,7 @@ const Swatch = ({ color }) => {
                   <p className="btn btn-ghost">
                     CMYK Value: {colorData.cmyk.value}
                   </p>
-                </CopyToClipboard>
+                </CopyToClipboard> */}
               </div>
             </div>
           </div>
