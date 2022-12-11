@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { FiArrowDown } from "react-icons/fi";
+import { TextToSpeech } from "text-to-speech-js";
 import { toast } from "react-hot-toast";
 
 const Swatch = ({ color }) => {
@@ -19,6 +20,17 @@ const Swatch = ({ color }) => {
       setColorData(data);
       console.log(data);
     }
+  };
+
+  const sayMessage = (message) => {
+    const speech = new SpeechSynthesisUtterance();
+    speech.text = message;
+
+    speech.volume = 1;
+    speech.rate = 1;
+    speech.pitch = 1;
+
+    window.speechSynthesis.speak(speech);
   };
 
   useEffect(() => {
@@ -72,6 +84,15 @@ const Swatch = ({ color }) => {
                 }}
                 className="flex flex-col gap-2 p-4 rounded-btn"
               >
+                <button
+                  onClick={() => {
+                    sayMessage(colorData.name.value);
+                  }}
+                  className="btn btn-primary"
+                >
+                  Play audio: {colorData.name.value}
+                </button>
+
                 <CopyToClipboard
                   text={colorData.hex.value}
                   onCopy={() => {
