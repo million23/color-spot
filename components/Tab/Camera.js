@@ -36,12 +36,15 @@ const TabCamera = () => {
         )}
         {!image && colors && (
           <>
-            <label htmlFor={"in_gallery"}>
+            <label
+              htmlFor={"in_gallery"}
+              className="flex flex-col items-center"
+            >
               <div className="w-64 h-64 border-2 flex flex-col justify-center items-center self-center rounded-btn">
                 <FiArrowDown className="text-2xl animate-bounce" />
                 <p className="text-sm">Click on the button to get started</p>
               </div>
-              <div className="btn btn-primary">
+              <div className="btn btn-primary w-full">
                 Get Image via Camera or Files
               </div>
             </label>
