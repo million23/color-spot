@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { FiArrowDown } from "react-icons/fi";
+import { toast } from "react-hot-toast";
+
 const Swatch = ({ color }) => {
   const [colorData, setColorData] = useState({});
+  const [collapsed, setCollapsed] = useState(true);
 
   const fetchColorName = async () => {
     const res = await fetch(
@@ -12,6 +17,7 @@ const Swatch = ({ color }) => {
 
     if (data) {
       setColorData(data);
+      console.log(data);
     }
   };
 
@@ -23,7 +29,7 @@ const Swatch = ({ color }) => {
     <div className="w-full gap-2 flex items-center">
       {colorData.name && (
         <>
-          <div
+          {/* <div
             className="w-10 h-10 rounded-full"
             style={{ backgroundColor: color }}
           />
@@ -32,7 +38,93 @@ const Swatch = ({ color }) => {
               {colorData.name.closest_named_hex}
             </span>
             <span>{colorData.name.value}</span>
-          </p>
+          </p> */}
+          <div className="collapse w-full">
+            <input
+              type="checkbox"
+              className="peer"
+              onChange={(e) => {
+                setCollapsed(!e.target.checked);
+              }}
+            />
+            <div
+              className={`collapse-title flex items-center gap-2 peer-checked:bg-[${colorData.hex.value}] peer-checked:text-[${colorData.contrast.value}]`}
+            >
+              <div
+                className="w-10 h-10 rounded-full"
+                style={{ backgroundColor: color }}
+              />
+              <span>{colorData.name.value}</span>
+              <FiArrowDown
+                style={{
+                  transform: collapsed ? "rotate(0deg)" : "rotate(180deg)",
+                }}
+                className="ml-auto"
+              />
+            </div>
+            <div
+              className={`collapse-content bg-transparent text-primary-content rounded `}
+            >
+              <div
+                style={{
+                  backgroundColor: colorData.hex.value,
+                  color: colorData.contrast.value,
+                }}
+                className="flex flex-col gap-2 p-4 rounded-btn"
+              >
+                <CopyToClipboard
+                  text={colorData.hex.value}
+                  onCopy={() => {
+                    toast.success("Copied to clipboard!");
+                  }}
+                >
+                  <p className="btn btn-ghost">
+                    Hex Value: {colorData.hex.value}
+                  </p>
+                </CopyToClipboard>
+                <CopyToClipboard
+                  text={colorData.rgb.value}
+                  onCopy={() => {
+                    toast.success("Copied to clipboard!");
+                  }}
+                >
+                  <p className="btn btn-ghost">
+                    RGB Value: {colorData.rgb.value}
+                  </p>
+                </CopyToClipboard>
+                <CopyToClipboard
+                  text={colorData.hsl.value}
+                  onCopy={() => {
+                    toast.success("Copied to clipboard!");
+                  }}
+                >
+                  <p className="btn btn-ghost">
+                    HSL Value: {colorData.hsl.value}
+                  </p>
+                </CopyToClipboard>
+                <CopyToClipboard
+                  text={colorData.hsv.value}
+                  onCopy={() => {
+                    toast.success("Copied to clipboard!");
+                  }}
+                >
+                  <p className="btn btn-ghost">
+                    HSV Value: {colorData.hsv.value}
+                  </p>
+                </CopyToClipboard>
+                <CopyToClipboard
+                  text={colorData.cmyk.value}
+                  onCopy={() => {
+                    toast.success("Copied to clipboard!");
+                  }}
+                >
+                  <p className="btn btn-ghost">
+                    CMYK Value: {colorData.cmyk.value}
+                  </p>
+                </CopyToClipboard>
+              </div>
+            </div>
+          </div>
         </>
       )}
     </div>

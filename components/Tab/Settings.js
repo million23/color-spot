@@ -33,6 +33,15 @@ const TabSettings = () => {
             <option value="dark">Dark</option>
           </select>
         </div>
+        <h1 className="text-3xl font-bold mt-10 mb-5">How to use</h1>
+        <ul className="flex flex-col gap-2">
+          <li>
+            1. Click the button at the middle of the screen to take a picture or
+            pick an image from your gallery
+          </li>
+          <li>2. Wait for the image to be processed</li>
+          <li>3. Click on the color swatches to copy the color code</li>
+        </ul>
 
         <h1 className="text-3xl font-bold mt-10 mb-5">About Us</h1>
         <p className="text-sm">

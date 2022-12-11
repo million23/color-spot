@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 
 import Head from "next/head";
+import { Toaster } from "react-hot-toast";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -21,7 +22,7 @@ function MyApp({ Component, pageProps }) {
         <link
           rel="mask-icon"
           href="/icons/safari-pinned-tab.svg"
-          color="#5bbad5"
+          color="#2a2a2a"
         />
 
         <link
@@ -51,6 +52,8 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </section>
       </main>
+
+      <Toaster position="bottom-right" reverseOrder={false} />
     </>
   );
 }

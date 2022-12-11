@@ -7,3 +7,8 @@
 * {
   font-family: "Ubuntu", sans-serif;
 }
+
+.screen {
+  @apply flex flex-col justify-center py-28;
+  min-height: calc(100vh - 4rem);
+}

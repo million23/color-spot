@@ -1,31 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { ColorExtractor } from "react-color-extractor";
+import { FiArrowDown } from "react-icons/fi";
 import Swatch from "../Camera/ColorSwatch";
 
 const TabCamera = () => {
   const [image, setImage] = useState(null);
   const [colors, setColors] = useState([]);
+  const cameraRef = useRef(null);
 
   return (
     <>
-      <div className="flex flex-col justify-end py-28 gap-10">
+      <div className="screen gap-10">
         <input
-          id="captureimage"
+          id="in_gallery"
           type="file"
-          capture="environment"
-          accept="image/*"
+          accept="image/png, image/jpeg"
           className="hidden"
           onChange={(e) => {
             setImage(e.target.files[0]);
             setColors([]);
           }}
         />
-
-        {/* <img
-          src={image ? URL.createObjectURL(image) : null}
-          className="w-64 h-64 self-center "
-        /> */}
         {image && (
           <ColorExtractor
             getColors={(colors) => {
@@ -38,11 +34,16 @@ const TabCamera = () => {
             />
           </ColorExtractor>
         )}
-
         {!image && colors && (
-          <label htmlFor={"captureimage"} className="btn btn-primary">
-            capture image
-          </label>
+          <>
+            <div className="w-64 h-64 border-2 flex flex-col justify-center items-center self-center rounded-btn">
+              <FiArrowDown className="text-2xl animate-bounce" />
+              <p className="text-sm">Click on the button to get started</p>
+            </div>
+            <label htmlFor={"in_gallery"} className="btn btn-primary">
+              Get Image via Camera or Files
+            </label>
+          </>
         )}
         {image && colors && (
           <label
@@ -55,9 +56,9 @@ const TabCamera = () => {
             reset image
           </label>
         )}
-
         <div className="flex flex-col gap-2">
           {colors.length > 0 &&
+            image &&
             colors.map((color, index) => <Swatch key={index} color={color} />)}
         </div>
       </div>
